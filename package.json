@@ -1,0 +1,25 @@
+{
+  "name": "tensorflow",
+  "version": "1.0.0",
+  "description": "practice for tensorflow",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jerrychen1013/tensorflow.git"
+  },
+  "keywords": [
+    "tensorflow"
+  ],
+  "author": "KKJ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jerrychen1013/tensorflow/issues"
+  },
+  "homepage": "https://github.com/jerrychen1013/tensorflow#readme",
+  "dependencies": {
+    "@tensorflow/tfjs": "^1.2.9"
+  }
+}
