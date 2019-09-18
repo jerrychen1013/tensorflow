@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/jerrychen1013/tensorflow#readme",
   "dependencies": {
-    "@tensorflow/tfjs": "^1.2.9"
+    "@tensorflow/tfjs": "^1.2.9",
+    "@tensorflow/tfjs-vis": "^1.1.0"
   }
 }
