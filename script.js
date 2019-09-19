@@ -1,7 +1,32 @@
 /**
  * Get the car data reduced to just the variables we are interested
  * and cleaned of missing data.
+ * 
+ * 主要步驟
+ * 1. 確認task
+ *   (1) 為regression問題或是classification 問題？
+ *   (2) 此學習為supervised 還是 unsupervised?
+ *   (3) 輸入資料之shape是什麼？ 其輸出資料看起來像什麼？
+ * 
+ * 2. 準備資料
+ *   (1) 可能時，清理資料並手動檢查
+ *   (2) 訓練前務必shuffle資料
+ *   (3) 常模化資料到神經網絡合理range，一般來說 0-1 or -1-1為最佳
+ *   (4) 轉換資料到tensors
+ * 
+ * 3. 建立並跑model
+ *   (1) 使用tf.sequential or tf.model定義model，並使用tf.layers.*加入layers
+ *   (2) 選擇optimizer (adam是好工具)，以及參數（例如batch size & epochs數目）
+ *   (3) 選擇適合的loss function來面對問題，以及精確的metric幫助評估進步。meanSquaredError常用在regression問題
+ *   (4) 監督訓練，並看是否loss有下降
+ * 
+ * 4. 評估model
+ *   選擇一個model的評估矩陣，使你可監測訓練。一但完成訓練，來做預測以看預測品質
  */
+
+
+
+
 async function getData() {
     const carsDataReq = await fetch('https://storage.googleapis.com/tfjs-tutorials/carsData.json');  
     const carsData = await carsDataReq.json();  
