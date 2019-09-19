@@ -33,6 +33,23 @@ async function getData() {
     );
   
     // More code will be added below
+    // Create the model
+    const model = createModel();  
+    tfvis.show.modelSummary({name: 'Model Summary'}, model);
   }
   
   document.addEventListener('DOMContentLoaded', run);
+
+  function createModel() {
+    // Create a sequential model, 呼叫sequential model
+    const model = tf.sequential(); 
+    
+    // Add a single hidden layer, dense階層用以矩陣加成input，再加數字(bias)到結果
+    // inputShape是[1]，因為有1數字作為output
+    model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
+    
+    // Add an output layer，units設定加權矩陣多大在階層，設為１代表每個input １加權
+    model.add(tf.layers.dense({units: 1, useBias: true}));
+  
+    return model;
+  }
