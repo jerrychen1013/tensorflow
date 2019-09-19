@@ -36,6 +36,14 @@ async function getData() {
     // Create the model
     const model = createModel();  
     tfvis.show.modelSummary({name: 'Model Summary'}, model);
+
+    // Convert the data to a form we can use for training.
+    const tensorData = convertToTensor(data);
+    const {inputs, labels} = tensorData;
+        
+    // Train the model  
+    await trainModel(model, inputs, labels);
+    console.log('Done Training');
   }
   
   document.addEventListener('DOMContentLoaded', run);
@@ -99,4 +107,27 @@ function convertToTensor(data) {
       labelMin,
     }
   });  
+}
+
+async function trainModel(model, inputs, labels) {
+  // Prepare the model for training.  
+  model.compile({
+    optimizer: tf.train.adam(),  // 隨著example管理和update model
+    loss: tf.losses.meanSquaredError, //使用mean square error比較model預測和真實value
+    metrics: ['mse'],
+  });
+  
+  const batchSize = 32;  // 每一次訓練遞迴中，model會看到多少資料subsets的大小
+  const epochs = 50; // model去看全部資料的次數，這裡代表看dataset 50個遞迴
+  
+  return await model.fit(inputs, labels, {  // 開始訓練loop，當訓練結束後回傳promise
+    batchSize,
+    epochs,
+    shuffle: true,
+    callbacks: tfvis.show.fitCallbacks(  // 產生繪圖loss & mse的function來監測訓練
+      { name: 'Training Performance' },
+      ['loss', 'mse'], 
+      { height: 200, callbacks: ['onEpochEnd'] }
+    )
+  });
 }
